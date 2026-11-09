@@ -1,22 +1,21 @@
-from django.urls import include,path
+from django.urls import include, path
 from rest_framework import routers
-from . import views 
+from myapinew import views
 
-# routing the database to the respective url
 router = routers.DefaultRouter()
-router.register(r'res_sale_model', views.resSaleViewSet)
-router.register(r'res_rent_model', views.resRentViewSet)
-router.register(r'res_pg_model', views.resPgViewSet)
-router.register(r'comm_sale_model', views.commSaleViewSet)
-router.register(r'comm_lease_model', views.commLeaseViewSet)
-router.register(r'nobrokerRent', views.noBrokerRent)
-router.register(r'nobrokerSale', views.noBrokerSale)
-router.register(r'noBrokerCommRent', views.noBrokerCommRent)
-router.register(r'noBrokerCommSale', views.noBrokerCommSale)
-router.register(r'noBrokerPg', views.noBrokerPg)
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
+router.register(r'res_sale_model', views.resSaleViewSet, basename='res_sale_model')
+router.register(r'res_rent_model', views.resRentViewSet, basename='res_rent_model')
+router.register(r'res_pg_model', views.resPgViewSet, basename='res_pg_model')
+router.register(r'comm_sale_model', views.commSaleViewSet, basename='comm_sale_model')
+router.register(r'comm_lease_model', views.commLeaseViewSet, basename='comm_lease_model')
+router.register(r'nobrokerRent', views.noBrokerRent, basename='nobrokerRent')
+router.register(r'nobrokerSale', views.noBrokerSale, basename='nobrokerSale')
+router.register(r'noBrokerCommRent', views.noBrokerCommRent, basename='noBrokerCommRent')
+router.register(r'noBrokerCommSale', views.noBrokerCommSale, basename='noBrokerCommSale')
+router.register(r'noBrokerPg', views.noBrokerPg, basename='noBrokerPg')
+
 urlpatterns = [
+    path('scrape/', views.ScrapeTriggerAPIView.as_view(), name='api-scrape-trigger'),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
